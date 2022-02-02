@@ -16,6 +16,18 @@ class Account {
     this.recordTransaction("withdrawal", new Date(), amount);
   }
 
+  printStatement() {
+    console.log("date || credit || debit || balance");
+    for (let transaction of this.transactions) {
+      const date = transaction.date.toLocaleString().split(",")[0];
+      const credit = transaction.value > 0 ? transaction.value.toString() : "";
+      const debit =
+        transaction.value < 0 ? Math.abs(transaction.value).toString() : "";
+      const { balance } = transaction;
+      console.log(`${date} || ${credit} || ${debit} || ${balance}`);
+    }
+  }
+
   validate(num) {
     const regex = /^\d*\.?\d{1,2}$/;
     if (regex.test(num) && Number(num)) {
@@ -38,17 +50,6 @@ class Account {
     this.transactions.unshift({ date, value, balance: this.balance });
   }
 
-  printStatement() {
-    console.log("date || credit || debit || balance");
-    for (let transaction of this.transactions) {
-      const date = transaction.date.toLocaleString().split(",")[0];
-      const credit = transaction.value > 0 ? transaction.value.toString() : "";
-      const debit =
-        transaction.value < 0 ? Math.abs(transaction.value).toString() : "";
-      const { balance } = transaction;
-      console.log(`${date} || ${credit} || ${debit} || ${balance}`);
-    }
-  }
 }
 
 module.exports = Account;

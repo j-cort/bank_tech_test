@@ -37,3 +37,51 @@ date || credit || debit || balance
 Once you have completed the challenge and feel happy with your solution, here's a form to help you reflect on the quality of your code: https://docs.google.com/forms/d/1Q-NnqVObbGLDHxlvbUfeAC7yBCf3eCjTmz6GOqC9Aeo/edit
 
 <!-- BEGIN GENERATED SECTION DO NOT EDIT -->
+
+## Undertaking
+
+Built a node.js bank account app which runs in the terminal and implements the following features:
+
+* making a deposit
+* making a withdrawal
+* printing a bank statement
+
+## Approach
+
+* Kept methods light by logic into helper functions
+* Used validation to mitigate invalid user inputs
+* Allowed string inputs to allow for future input via a front-end UI
+
+## Technologies
+
+Node - backend 
+Mocha, Chai, Nyc, Sinon  - unit testing (including testing output to console)
+
+## Structure
+
+Code is strucutred within a single account class, given the relative simplicity of the app. If the app were to be expanded in the future, then separate user and transaction classes could be potentially added.
+
+## How to run the app
+
+* Clone this repo
+* Run npm install to download dependencies
+* Run Account.js from the terminal with the following:
+
+```
+{
+  $ node     
+  $ .load model/Account.js 
+  $ const account = new Account()
+}
+```
+
+* Try interacting with the bank account:
+
+```
+{
+  $ account.deposit(5500)
+  $ account.withdraw(400)
+  $ account.withdraw(1500.50)
+  $ account.printStatment()
+}
+```
