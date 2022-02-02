@@ -7,6 +7,12 @@ class Account {
   deposit(num) {
     const amount = this.validate(num)
     this.balance += amount
+    this.recordTransaction('deposit', new Date(), amount)
+  }
+
+  withdraw(num) {
+    const amount = this.validate(num)
+    this.balance -= amount
   }
 
   validate(num) {
@@ -16,6 +22,11 @@ class Account {
     } else {
       throw 'Error: invalid input'
     }
+  }
+
+  recordTransaction(type, date, value) {
+    if(type === 'withdrawal') value *= -1
+    this.transactions.unshift({date, value})
   }
 }
 
