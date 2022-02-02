@@ -113,21 +113,36 @@ describe('#printStatement', () => {
 
   beforeEach(function() {
     sinon.spy(console, 'log');
-    account.deposit(1000)
-    account.deposit(2000)
-    account.withdraw(500)
   });
 
   afterEach(function() {
     console.log.restore();
   });
   
-  it('prints statement to console', () => {
+  it('prints statement to console (w/live data)', () => {
+    account.deposit(1000)
+    account.deposit(2000)
+    account.withdraw(500)
+
     account.printStatement()
+
     expect(console.log).to.have.been.calledWith("date || credit || debit || balance");
     expect(console.log).to.have.been.calledWith("02/02/2022 ||  || 500 || 2500");
     expect(console.log).to.have.been.calledWith("02/02/2022 || 2000 ||  || 3000");
     expect(console.log).to.have.been.calledWith("02/02/2022 || 1000 ||  || 1000");
+  })
+  
+  it('prints statement to console (w/synthetic data)', () => {
+    account.transactions.unshift({date: new Date('01/10/2023'), value: 1000, balance: 1000})
+    account.transactions.unshift({date: new Date('01/13/2023'), value: 2000, balance: 3000})
+    account.transactions.unshift({date: new Date('01/14/2023'), value: -500, balance: 2500})
+
+    account.printStatement()
+
+    expect(console.log).to.have.been.calledWith("date || credit || debit || balance");
+    expect(console.log).to.have.been.calledWith("14/01/2023 ||  || 500 || 2500");
+    expect(console.log).to.have.been.calledWith("13/01/2023 || 2000 ||  || 3000");
+    expect(console.log).to.have.been.calledWith("10/01/2023 || 1000 ||  || 1000");
   })
  
 })
