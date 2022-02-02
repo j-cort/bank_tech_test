@@ -119,19 +119,6 @@ describe('#printStatement', () => {
     console.log.restore();
   });
   
-  it('prints statement to console (w/live data)', () => {
-    account.deposit(1000)
-    account.deposit(2000)
-    account.withdraw(500)
-
-    account.printStatement()
-
-    expect(console.log).to.have.been.calledWith("date || credit || debit || balance");
-    expect(console.log).to.have.been.calledWith("02/02/2022 ||  || 500 || 2500");
-    expect(console.log).to.have.been.calledWith("02/02/2022 || 2000 ||  || 3000");
-    expect(console.log).to.have.been.calledWith("02/02/2022 || 1000 ||  || 1000");
-  })
-  
   it('prints statement to console (w/synthetic data)', () => {
     account.transactions.unshift({date: new Date('01/10/2023'), value: 1000, balance: 1000})
     account.transactions.unshift({date: new Date('01/13/2023'), value: 2000, balance: 3000})
