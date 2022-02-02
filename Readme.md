@@ -54,8 +54,8 @@ Built a node.js bank account app which runs in the terminal and implements the f
 
 ## Technologies
 
-Node - backend 
-Mocha, Chai, Nyc, Sinon  - unit testing (including testing output to console)
+* Node - backend 
+* Mocha, Chai, Nyc, Sinon  - unit testing (including testing output to console)
 
 ## Structure
 
