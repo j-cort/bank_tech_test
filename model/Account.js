@@ -12,7 +12,8 @@ class Account {
 
   withdraw(num) {
     const amount = this.validate(num)
-    this.balance -= amount
+    if (this.checkEnoughBalance(amount)) this.balance -= amount
+    this.recordTransaction('withdrawal', new Date(), amount)
   }
 
   validate(num) {
@@ -21,6 +22,14 @@ class Account {
       return Number(num)
     } else {
       throw 'Error: invalid input'
+    }
+  }
+
+  checkEnoughBalance(amount) {
+    if(amount <= this.balance) {
+      return true
+    } else {
+      throw 'Error: insufficient balance'
     }
   }
 
