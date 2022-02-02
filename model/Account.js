@@ -18,7 +18,7 @@ class Account {
 
   validate(num) {
     const regex = /^\d*\.?\d{1,2}$/
-    if(regex.test(num)) {
+    if(regex.test(num) && Number(num)) {
       return Number(num)
     } else {
       throw 'Error: invalid input'
@@ -35,7 +35,18 @@ class Account {
 
   recordTransaction(type, date, value) {
     if(type === 'withdrawal') value *= -1
-    this.transactions.unshift({date, value})
+    this.transactions.unshift({date, value, balance: this.balance})
+  }
+
+  printStatement() {
+    console.log('date || credit || debit || balance')
+    for(let transaction of this.transactions) {
+      const date = transaction.date.toLocaleString().split(',')[0]
+      const credit = transaction.value > 0 ? transaction.value.toString() : ''
+      const debit = transaction.value < 0 ? Math.abs(transaction.value).toString() : ''
+      const { balance } = transaction
+    console.log(`${date} || ${credit} || ${debit} || ${balance}`)
+    }
   }
 }
 

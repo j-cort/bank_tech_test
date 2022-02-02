@@ -1,5 +1,10 @@
-const { expect } = require('chai')
 const Account = require('../model/Account')
+const { expect } = require('chai')
+const sinonChai = require('sinon-chai')
+const sinon = require('sinon')
+const chai = require('chai')
+
+chai.use(sinonChai)
 
 let account = new Account()
 
@@ -23,6 +28,8 @@ describe('#deposit', () => {
   })
 
   it('throws error on non-number/number-parseable string inputs', () => {
+    expect(() => { account.deposit() }).to.throw('Error: invalid input')
+    expect(() => { account.deposit(0) }).to.throw('Error: invalid input')
     expect(() => { account.deposit('string') }).to.throw('Error: invalid input')
     expect(() => { account.deposit(true) }).to.throw('Error: invalid input')
     expect(() => { account.deposit(undefined) }).to.throw('Error: invalid input')
@@ -50,6 +57,7 @@ describe('#deposit', () => {
     account.deposit(5.50)
     expect(account.transactions.length).to.eql(1)
     expect(account.transactions[0].value).to.eql(5.5)
+    expect(account.transactions[0].balance).to.eql(5.5)
   })
 })
 
@@ -64,6 +72,8 @@ describe('#withdraw', () => {
   })
 
   it('throws error on non-number/number-parseable string inputs', () => {
+    expect(() => { account.withdraw() }).to.throw('Error: invalid input')
+    expect(() => { account.withdraw(0) }).to.throw('Error: invalid input')
     expect(() => { account.withdraw('string') }).to.throw('Error: invalid input')
     expect(() => { account.withdraw(true) }).to.throw('Error: invalid input')
     expect(() => { account.withdraw(undefined) }).to.throw('Error: invalid input')
@@ -95,7 +105,31 @@ describe('#withdraw', () => {
     account.withdraw(5.5)
     expect(account.transactions.length).to.eql(2)
     expect(account.transactions[0].value).to.eql(-5.5)
+    expect(account.transactions[0].balance).to.eql(94.5)
   })
+})
+
+describe('#printStatement', () => {
+
+  beforeEach(function() {
+    sinon.spy(console, 'log');
+    account.deposit(1000)
+    account.deposit(2000)
+    account.withdraw(500)
+  });
+
+  afterEach(function() {
+    console.log.restore();
+  });
+  
+  it('prints statement to console', () => {
+    account.printStatement()
+    expect(console.log).to.have.been.calledWith("date || credit || debit || balance");
+    expect(console.log).to.have.been.calledWith("02/02/2022 ||  || 500 || 2500");
+    expect(console.log).to.have.been.calledWith("02/02/2022 || 2000 ||  || 3000");
+    expect(console.log).to.have.been.calledWith("02/02/2022 || 1000 ||  || 1000");
+  })
+ 
 })
 
 
