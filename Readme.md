@@ -1,13 +1,5 @@
 # Bank tech test
 
-Today, you'll practice doing a tech test.
-
-For most tech tests, you'll essentially have unlimited time.  This practice session is about producing the best code you can when there is a minimal time pressure.
-
-You'll get to practice your OO design and TDD skills.
-
-You'll work alone, and you'll also review your own code so you can practice reflecting on and improving your own work.
-
 ## Specification
 
 ### Requirements
@@ -32,15 +24,9 @@ date || credit || debit || balance
 10/01/2023 || 1000.00 || || 1000.00
 ```
 
-## Self-assessment
-
-Once you have completed the challenge and feel happy with your solution, here's a form to help you reflect on the quality of your code: https://docs.google.com/forms/d/1Q-NnqVObbGLDHxlvbUfeAC7yBCf3eCjTmz6GOqC9Aeo/edit
-
-<!-- BEGIN GENERATED SECTION DO NOT EDIT -->
-
 ## Undertaking
 
-Built a node.js bank account app which runs in the terminal and implements the following features:
+Built a node.js bank account app which runs in the terminal and implements the following features as per requirements:
 
 * making a deposit
 * making a withdrawal
@@ -48,40 +34,52 @@ Built a node.js bank account app which runs in the terminal and implements the f
 
 ## Approach
 
-* Kept methods light by logic into helper functions
-* Used validation to mitigate invalid user inputs
-* Allowed string inputs to allow for future input via a front-end UI
+* Kept methods light by extracting logic into helper functions
+* Used extensive validation to mitigate invalid user inputs
+* Allowed string inputs to accommodate future input via a front-end UI
 
 ## Technologies
 
-* Node - backend 
-* Mocha, Chai, Nyc, Sinon  - unit testing (including testing output to console)
+* Node - backend
+* Mocha, Chai, Nyc, Sinon - unit testing (including testing output to console)
 
 ## Structure
 
-Code is strucutred within a single account class, given the relative simplicity of the app. If the app were to be expanded in the future, then separate user and transaction classes could be potentially added.
+Code is strucutred within an account class and a printer class to uphold Single Responsibility Principles (SRP).
 
 ## How to run the app
 
 * Clone this repo
-* Run npm install to download dependencies
+
+```
+git clone https://github.com/j-cort/bank_tech_test.git
+```
+
+* Run npm i to download dependencies
+
+```
+npm i
+```
+
+* Run tests
+
+```
+npm test
+```
+
 * Run Account.js from the terminal with the following:
 
 ```
-{
-  $ node     
-  $ .load model/Account.js 
-  $ const account = new Account()
-}
+node     
+.load model/Account.js 
+const account = new Account()
 ```
 
 * Try interacting with the bank account:
 
 ```
-{
   $ account.deposit(5500)
   $ account.withdraw(400)
   $ account.withdraw(1500.50)
-  $ account.printStatment()
-}
+  $ account.printStatement()
 ```
