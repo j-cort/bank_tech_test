@@ -39,7 +39,7 @@ Built a node.js bank account app which runs in the terminal and implements the f
 
 ## Structure
 
-Code is strucutred within an account class and a printer class to uphold Single Responsibility Principles (SRP).
+Code is strucutred within an "Account" class for transactions and a "Printer" class to issue statements, thus upholding Single Responsibility Principle (SRP).
 
 ## How to run the app
 
