@@ -30,6 +30,8 @@ Built a node.js bank account app which runs in the terminal and implements the f
 * making a withdrawal
 * printing a bank statement
 
+![Printed Statement](./printedStatement.PNG)
+
 ## Technologies
 
 * Node - backend
@@ -64,8 +66,7 @@ npm test
 
 ```
 node 
-.load model/Printer.js    
-.load model/Account.js 
+const Account = require("./model/Account") 
 const account = new Account()
 ```
 
