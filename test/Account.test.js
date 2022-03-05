@@ -12,7 +12,6 @@ afterEach(() => {
 describe('Account Class', () => {
   it('instantiates a new account with no balance or transcation history', () => {
     expect(account).to.be.an.instanceof(Account)
-    expect(account.balance).to.eql(0)
     expect(account.transactions).to.eql([])
   })
 })
@@ -20,7 +19,7 @@ describe('Account Class', () => {
 describe('#deposit', () => {
   it('adds the deposited amount to the account balance', () => {
     account.deposit(5.50)
-    expect(account.balance).to.eql(5.5)
+    expect(account.calculateBalance()).to.eql(5.5)
   })
 
   it('throws error on non-number/number-parseable string inputs', () => {
@@ -52,8 +51,7 @@ describe('#deposit', () => {
   it('records the deposit in the account transactions', () => {
     account.deposit(5.50)
     expect(account.transactions.length).to.eql(1)
-    expect(account.transactions[0].value).to.eql(5.5)
-    expect(account.transactions[0].balance).to.eql(5.5)
+    expect(account.transactions.at(-1).value).to.eql(5.5)
   })
 })
 
@@ -64,7 +62,7 @@ describe('#withdraw', () => {
 
   it('removes the withdrawn amount from the account balance', () => {
     account.withdraw(5.5)
-    expect(account.balance).to.eql(94.5)
+    expect(account.calculateBalance()).to.eql(94.5)
   })
 
   it('throws error on non-number/number-parseable string inputs', () => {
@@ -100,8 +98,7 @@ describe('#withdraw', () => {
   it('records the withdrawal in the account transactions', () => {
     account.withdraw(5.5)
     expect(account.transactions.length).to.eql(2)
-    expect(account.transactions[0].value).to.eql(-5.5)
-    expect(account.transactions[0].balance).to.eql(94.5)
+    expect(account.transactions.at(-1).value).to.eql(-5.5)
   })
 })
 

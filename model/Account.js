@@ -1,4 +1,4 @@
-// const Printer = require("./Printer")
+const Printer = require("./Printer")
 
 class Account {
 
