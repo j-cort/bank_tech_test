@@ -2,11 +2,11 @@ class Printer {
 
   printStatement(transactions) {
     console.log("date || credit || debit || balance");
-    for (let transaction of transactions) {
-      const date = this.generateDate(transaction.date)
-      const credit = this.generateCredit(transaction.value)
-      const debit = this.generateDebit(transaction.value)
-      const balance = transaction.balance.toFixed(2)
+    for (let i = transactions.length-1; i >= 0; i--) {
+      const date = this.generateDate(transactions[i].date)
+      const credit = this.generateCredit(transactions[i].value)
+      const debit = this.generateDebit(transactions[i].value)
+      const balance = this.generateBalance(transactions, i)
       console.log(`${date} || ${credit} || ${debit} || ${balance}`);
     }
   }
@@ -21,6 +21,13 @@ class Printer {
 
   generateDebit(value) {
     return value < 0 ? Math.abs(value).toFixed(2).toString() : "";
+  }
+
+  generateBalance(transactions, i) {
+    const transactionValues = transactions.filter((transaction, index) => index <= i)
+      .map(transaction => transaction.value)
+    return transactionValues.reduce((prev, curr) => prev + curr)
+      .toFixed(2).toString()
   }
 
 }

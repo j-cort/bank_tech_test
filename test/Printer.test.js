@@ -16,12 +16,12 @@ describe('#printStatement', () => {
     console.log.restore();
   });
   
-  it('prints statement to console (w/synthetic data)', () => {
+  it('prints statement to console (w/synthetic data)', () => { 
     const printer = new Printer()  
     let transactions = []
-    transactions.unshift({date: new Date('01/10/2023'), value: 1000, balance: 1000})
-    transactions.unshift({date: new Date('01/13/2023'), value: 2000, balance: 3000})
-    transactions.unshift({date: new Date('01/14/2023'), value: -500, balance: 2500})
+    transactions.push({date: new Date('01/10/2023'), value: 1000, balance: 1000})
+    transactions.push({date: new Date('01/13/2023'), value: 2000, balance: 3000})
+    transactions.push({date: new Date('01/14/2023'), value: -500, balance: 2500})
 
     printer.printStatement(transactions)
 

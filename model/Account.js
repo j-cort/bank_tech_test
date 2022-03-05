@@ -3,7 +3,6 @@
 class Account {
 
   constructor() {
-    this.balance = 0;
     this.transactions = [];
     this.printer = new Printer()
     this.DEPOSIT = "DEPOSIT"
@@ -12,13 +11,12 @@ class Account {
 
   deposit(num) {
     const amount = this.validate(num);
-    this.balance += amount;
     this.recordTransaction(this.DEPOSIT, new Date(), amount);
   }
 
   withdraw(num) {
     const amount = this.validate(num);
-    if (this.checkIfEnoughBalance(amount)) this.balance -= amount;
+    this.checkIfEnoughBalance(amount);
     this.recordTransaction(this.WITHDRAWAL, new Date(), amount);
   }
 
@@ -32,7 +30,8 @@ class Account {
   }
 
   checkIfEnoughBalance(amount) {
-    if (amount <= this.balance) {
+    const balance = this.calculateBalance()
+    if (amount <= balance) {
       return true;
     } else {
       throw "Error: insufficient balance";
@@ -41,7 +40,14 @@ class Account {
 
   recordTransaction(type, date, value) {
     if (type === this.WITHDRAWAL) value *= -1;
-    this.transactions.unshift({ date, value, balance: this.balance });
+    this.transactions.push({ date, value });
+  }
+
+  calculateBalance() {
+    let balance = 0
+    this.transactions.forEach(transaction => balance += transaction.value)
+    return balance
+
   }
 
   printStatement() {
