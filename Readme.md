@@ -47,9 +47,10 @@ Code is strucutred within an account class and a printer class to uphold Single 
 git clone https://github.com/j-cort/bank_tech_test.git
 ```
 
-* Run npm i to download dependencies
+* Move into the app's directory and run npm i to download dependencies
 
 ```
+cd bank_tech_test/
 npm i
 ```
 
@@ -70,8 +71,8 @@ const account = new Account()
 * Try interacting with the bank account:
 
 ```
-  $ account.deposit(5500)
-  $ account.withdraw(400)
-  $ account.withdraw(1500.50)
-  $ account.printStatement()
+account.deposit(5500)
+account.withdraw(400)
+account.withdraw(1500.50)
+account.printStatement()
 ```
