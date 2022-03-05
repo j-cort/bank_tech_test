@@ -1,4 +1,4 @@
-const Printer = require("./Printer")
+// const Printer = require("./Printer")
 
 class Account {
 
@@ -6,18 +6,20 @@ class Account {
     this.balance = 0;
     this.transactions = [];
     this.printer = new Printer()
+    this.DEPOSIT = "DEPOSIT"
+    this.WITHDRAWAL = "WITHDRAWAL"
   }
 
   deposit(num) {
     const amount = this.validate(num);
     this.balance += amount;
-    this.recordTransaction("deposit", new Date(), amount);
+    this.recordTransaction(this.DEPOSIT, new Date(), amount);
   }
 
   withdraw(num) {
     const amount = this.validate(num);
     if (this.checkIfEnoughBalance(amount)) this.balance -= amount;
-    this.recordTransaction("withdrawal", new Date(), amount);
+    this.recordTransaction(this.WITHDRAWAL, new Date(), amount);
   }
 
   validate(num) {
@@ -38,7 +40,7 @@ class Account {
   }
 
   recordTransaction(type, date, value) {
-    if (type === "withdrawal") value *= -1;
+    if (type === this.WITHDRAWAL) value *= -1;
     this.transactions.unshift({ date, value, balance: this.balance });
   }
 
