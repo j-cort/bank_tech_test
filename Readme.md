@@ -63,7 +63,8 @@ npm test
 * Run Account.js from the terminal with the following:
 
 ```
-node     
+node 
+.load model/Printer.js    
 .load model/Account.js 
 const account = new Account()
 ```

@@ -1,7 +1,11 @@
+const Printer = require("./Printer")
+
 class Account {
+
   constructor() {
     this.balance = 0;
     this.transactions = [];
+    this.printer = new Printer()
   }
 
   deposit(num) {
@@ -12,20 +16,8 @@ class Account {
 
   withdraw(num) {
     const amount = this.validate(num);
-    if (this.checkEnoughBalance(amount)) this.balance -= amount;
+    if (this.checkIfEnoughBalance(amount)) this.balance -= amount;
     this.recordTransaction("withdrawal", new Date(), amount);
-  }
-
-  printStatement() {
-    console.log("date || credit || debit || balance");
-    for (let transaction of this.transactions) {
-      const date = transaction.date.toLocaleString().split(",")[0];
-      const credit = transaction.value > 0 ? transaction.value.toFixed(2).toString() : "";
-      const debit =
-        transaction.value < 0 ? Math.abs(transaction.value).toFixed(2).toString() : "";
-      const balance = transaction.balance.toFixed(2)
-      console.log(`${date} || ${credit} || ${debit} || ${balance}`);
-    }
   }
 
   validate(num) {
@@ -37,7 +29,7 @@ class Account {
     }
   }
 
-  checkEnoughBalance(amount) {
+  checkIfEnoughBalance(amount) {
     if (amount <= this.balance) {
       return true;
     } else {
@@ -48,6 +40,10 @@ class Account {
   recordTransaction(type, date, value) {
     if (type === "withdrawal") value *= -1;
     this.transactions.unshift({ date, value, balance: this.balance });
+  }
+
+  printStatement() {
+    this.printer.printStatement(this.transactions)
   }
 
 }
